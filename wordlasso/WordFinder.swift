@@ -32,6 +32,8 @@ struct WordFinder {
     }
     
     func findMatches(for template: String) -> [String] {
+        #warning("Handle empty templates.")
+        
         return wordList.filter { candidate in
             isMatch(template: caseCorrected(template),
                     with: caseCorrected(candidate))

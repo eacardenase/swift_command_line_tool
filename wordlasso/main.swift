@@ -20,8 +20,9 @@ struct Wordlasso {
         if args.count > 1 {
             template = args[1]
         } else {
-            template = ""
-            #warning("Ask the user for input interactively.")
+            print("Enter word template: ", terminator: "")
+            
+            template = readLine() ?? ""
         }
         
         let matches = wordFinder.findMatches(for: template)
