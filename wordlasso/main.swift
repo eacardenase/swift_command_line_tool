@@ -10,7 +10,7 @@ import Foundation
 struct Wordlasso {
     func run() throws {
         let wordList = ["Wolf", "wolf", "word", "works", "woo"]
-        let wordFinder = WordFinder(wordList: wordList)
+        let wordFinder = WordFinder(wordList: wordList, ignoreCase: true)
         
         let template = "wo.."
         let matches = wordFinder.findMatches(for: template)
