@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import ArgumentParser
 
-struct Wordlasso {
+struct Wordlasso: ParsableCommand {
     private func findAndPrintMatches(for template: String, using wordFinder: WordFinder) {
         let matches = wordFinder.findMatches(for: template)
         
@@ -41,8 +42,4 @@ struct Wordlasso {
     }
 }
 
-do {
-    try Wordlasso().run()
-} catch {
-    fatalError("Program exited unexpectedly. \(error)")
-}
+Wordlasso.main()
