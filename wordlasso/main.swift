@@ -9,6 +9,12 @@ import Foundation
 import ArgumentParser
 
 struct Wordlasso: ParsableCommand {
+    @Argument(help: """
+        The word template to match, with \(WordFinder.wildcard) as \
+        placeholders. Leaving this blank will enter interactive mode.
+        """)
+    var template: String?
+    
     private func findAndPrintMatches(for template: String, using wordFinder: WordFinder) {
         let matches = wordFinder.findMatches(for: template)
         
@@ -26,9 +32,7 @@ struct Wordlasso: ParsableCommand {
         let args = CommandLine.arguments
         print("Command-line arguments:", args)
         
-        if args.count > 1 {
-            let template = args[1]
-            
+        if let template = template {
             findAndPrintMatches(for: template, using: wordFinder)
         } else {
             while true {
