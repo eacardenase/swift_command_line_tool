@@ -8,6 +8,16 @@
 import Foundation
 
 struct Wordlasso {
+    private func findAndPrintMatches(for template: String, using wordFinder: WordFinder) {
+        let matches = wordFinder.findMatches(for: template)
+        
+        print("Found \(matches.count) \(matches.count == 1 ? "match" : "matches"):")
+        
+        for match in matches {
+            print(match)
+        }
+    }
+    
     func run() throws {
         let path = "/usr/share/dict/words"
         let wordFinder = try WordFinder(wordListPath: path, ignoreCase: true)
@@ -15,22 +25,18 @@ struct Wordlasso {
         let args = CommandLine.arguments
         print("Command-line arguments:", args)
         
-        let template: String
-        
         if args.count > 1 {
-            template = args[1]
-        } else {
-            print("Enter word template: ", terminator: "")
+            let template = args[1]
             
-            template = readLine() ?? ""
-        }
-        
-        let matches = wordFinder.findMatches(for: template)
-        
-        print("Found \(matches.count) \(matches.count == 1 ? "match" : "matches"):")
-        
-        for match in matches {
-            print(match)
+            findAndPrintMatches(for: template, using: wordFinder)
+        } else {
+            while true {
+                print("Enter word template: ", terminator: "")
+                
+                guard let template = readLine(), !template.isEmpty else { return }
+                
+                findAndPrintMatches(for: template, using: wordFinder)
+            }
         }
     }
 }
