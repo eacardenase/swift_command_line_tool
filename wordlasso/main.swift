@@ -15,6 +15,9 @@ struct Wordlasso: ParsableCommand {
         """)
     var template: String?
     
+    @Flag(name: .shortAndLong, help: "Perform case-insensitive matches.")
+    var ignoreCase: Bool = false
+    
     private func findAndPrintMatches(for template: String, using wordFinder: WordFinder) {
         let matches = wordFinder.findMatches(for: template)
         
@@ -27,7 +30,7 @@ struct Wordlasso: ParsableCommand {
     
     func run() throws {
         let path = "/usr/share/dict/words"
-        let wordFinder = try WordFinder(wordListPath: path, ignoreCase: true)
+        let wordFinder = try WordFinder(wordListPath: path, ignoreCase: ignoreCase)
         
         let args = CommandLine.arguments
         print("Command-line arguments:", args)
